@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  copygram:
+    container_name: copygram
+    image: copygram
+    build: ./
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
