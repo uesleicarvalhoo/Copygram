@@ -1,20 +1,11 @@
 # Variables
 GIT_CURRENT_BRANCH := ${shell git symbolic-ref --short HEAD}
-BASE_DIR := .
-PKG_NAME := src
-SRC_DIR := $(BASE_DIR)/$(PKG_NAME)
+SRC_DIR := ./src
 LINE_LENGTH := 120
 
 
-run:
-	@for ENVVAR in $(cat .env); do \
-		echo $ENVVAR; \
-		export $ENVVAR; \
-	done
-	uvicorn src.app:app --host $$APP_DEFAULT_HOST --port $$APP_DEFAULT_PORT --reload
-
 run_docker:
-	docker-compose build && docker-compose up
+	docker-compose build && docker-compose up -d
 
 format:
 	black $(SRC_DIR)/* --line-length=$(LINE_LENGTH) --skip-string-normalization
