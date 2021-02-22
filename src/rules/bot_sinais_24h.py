@@ -13,7 +13,7 @@ class Signal(BaseSignal):
 
     @property
     def base_message(self) -> str:
-        return self.__message
+        return self.__base_message
 
     def validate_message(self, message: str) -> bool:
         return True
