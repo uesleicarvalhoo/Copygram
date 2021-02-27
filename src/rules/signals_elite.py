@@ -7,7 +7,7 @@ from src.settings import CHANNEL_ID_AO_VIVO, CHANNEL_ID_METODO_CONSISTENTE
 class Signal(BaseSignal):
     def parse_message(self, message: str) -> str:
         new_message = []
-        for text_line in message.split("\n"):
+        for text_line in message.replace("SIGNALS ELITE", "%(group_name)s").split("\n"):
             if not text_line:
                 continue
 
