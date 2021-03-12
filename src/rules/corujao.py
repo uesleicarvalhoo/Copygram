@@ -1,3 +1,4 @@
+from src.settings import CHANNEL_ID_METODO_CONSISTENTE
 from typing import Dict
 
 from src.rules.base import BaseSignal
@@ -19,4 +20,4 @@ class Signal(BaseSignal):
 
     @property
     def channels_messages(self) -> Dict:
-        return {}
+        return {CHANNEL_ID_METODO_CONSISTENTE: self.base_message % {"group_name": "Metodo Consistente"}}
