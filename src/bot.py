@@ -1,14 +1,16 @@
 import logging
 import re
 
-from telebot import Telebot
+from telebot import TeleBot
+from telebot.apihelper import ApiTelegramException
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
+from telethon.tl.types import PeerChannel
 
 from src.settings import API_HASH, API_TOKEN, TELEGRAM_BOT_API_KEY, TELEGRAM_STRING_SESSION
 from src.utils import load_signal
 
-telegram_bot = Telebot(TELEGRAM_BOT_API_KEY)
+telegram_bot = TeleBot(TELEGRAM_BOT_API_KEY)
 client = TelegramClient(StringSession(TELEGRAM_STRING_SESSION), API_TOKEN, API_HASH)
 
 
@@ -31,7 +33,12 @@ async def handler_new_message(event):
     for channel_id, message in signal.channels_messages.items():
         logging.info("Signal validated, sending message to Channel %s.." % channel_id)
 
-        telegram_bot.send_message(channel_id, message)
+        try:
+            telegram_bot.send_message(chat_id=channel_id, text=message)
+
+        except ApiTelegramException:
+            channel = await client.get_entity(PeerChannel(channel_id))
+            await client.send_message(entity=channel, message=message)
 
 
 def get_channel_id_from_peer(peer: str) -> str:
