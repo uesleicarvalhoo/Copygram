@@ -5,7 +5,7 @@ LINE_LENGTH := 120
 
 
 run_docker:
-	docker-compose build && docker-compose up -d
+	docker build -t copygram . && docker run --restart=always -d --name=copygram copygram
 
 format:
 	black $(SRC_DIR)/* --line-length=$(LINE_LENGTH) --skip-string-normalization

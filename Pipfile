@@ -12,6 +12,7 @@ black = "==20.8b1"
 [packages]
 telethon = "*"
 python-decouple = "*"
+pyTelegramBotAPI = "*"
 
 [requires]
 python_version = "3.8"

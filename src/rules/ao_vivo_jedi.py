@@ -1,11 +1,12 @@
 from typing import Dict
 
 from src.rules.base import BaseSignal
+from src.settings import CHANNEL_ID_METODO_CONSISTENTE
 
 
 class Signal(BaseSignal):
     def parse_message(self, message: str) -> None:
-        self.__base_message = message.replace("Corujão 24hs", "%(group_name)s")
+        self.__base_message = message.replace("COMUNIDADE JEDI", "%(group_name)s")
 
     def validate_signal(self) -> bool:
         return True
@@ -15,8 +16,10 @@ class Signal(BaseSignal):
         return self.__base_message
 
     def validate_message(self, message: str) -> bool:
-        return True
+        return "MOEDA" in message and "OPERAÇÃO" in message
 
     @property
     def channels_messages(self) -> Dict:
-        return {}
+        return {
+            CHANNEL_ID_METODO_CONSISTENTE: self.base_message % {"group_name": "MÉTODO CONSISTENTE"},
+        }
