@@ -1,7 +1,7 @@
 from typing import Dict
 
 from src.rules.base import BaseSignal
-from src.settings import CHANNEL_ID_METODO_CONSISTENTE
+from src.settings import CHANNEL_ID_METODO_CONSISTENTE, CHANNEL_ID_METODO_CONSISTENTE_NOVO
 
 
 class Signal(BaseSignal):
@@ -22,4 +22,5 @@ class Signal(BaseSignal):
     def channels_messages(self) -> Dict:
         return {
             CHANNEL_ID_METODO_CONSISTENTE: self.base_message % {"group_name": "MÉTODO CONSISTENTE"},
+            CHANNEL_ID_METODO_CONSISTENTE_NOVO: self.base_message % {"group_name": "MÉTODO CONSISTENTE"}
         }
